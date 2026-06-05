@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+⏳ SandHourglass Simulation
+React と HTML5 Canvas を使用した、物理挙動をシミュレートするインタラクティブな砂時計です。
+セル・オートマトン（格子気体法）のアルゴリズムを用いて、砂がサラサラと流れ落ち、自然に砂山を形成する様子を再現しています。
+<img width="387" height="750" alt="スクリーンショット 2026-06-06 072640" src="https://github.com/user-attachments/assets/a09fa45a-8d9f-46c4-b62c-ac3e77ffd780" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 特徴
+物理シミュレーション: 各砂粒が周囲の状態を判断し、重力に従って落下・分散します。
 
-Currently, two official plugins are available:
+インタラクティブ: 画面をクリックすることで砂時計が反転し、何度でも砂の流れを楽しめます。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+動的描画: Canvas API を利用し、フレームごとに滑らかな砂の動きを描画します。
 
-## React Compiler
+🛠 使用技術
+React: UI と状態管理に使用
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+TypeScript: 型安全なコードベース
 
-## Expanding the ESLint configuration
+HTML5 Canvas API: 高速なピクセルベースの描画
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+⚙️ 仕組み
+この砂時計は「グリッドベースの物理演算」で動いています。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+容器の定義: isInsideContainer 関数で、ひょうたん型の領域を数学的に定義しています。
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+物理演算:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+砂は「真下が空なら移動」「詰まっていれば左右斜め下へ拡散」というルールに従います。
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+この単純なルールの積み重ねが、安息角（砂山が安定する角度）を自然に作り出します。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+状態管理: 反転操作時にグリッド全体を再計算し、新しい重力方向に基づいてシミュレーションを再構築します。
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+📖 使い方
+リポジトリをクローンまたはダウンロードします。
+
+npm install で依存関係をインストールします。
+
+npm start で開発サーバーを立ち上げます。
+
+ブラウザで表示される砂時計をクリックして、流れをお楽しみください。
+
+今後の拡張アイデア
+もしさらに改良を加えるなら、こんな機能も面白いかもしれません：
+
+色の追加: 砂の種類（色）を増やして、混ざり合う様子を再現する。
+
+速度調節: 砂の落下速度をリアルタイムで変更できるスライダーを追加する。
+
+UIの装飾: Canvas 周囲に木製の枠やガラスの質感を CSS で追加して、見た目をよりリッチにする。
